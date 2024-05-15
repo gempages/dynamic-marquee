@@ -565,6 +565,19 @@
         });
       }
     }, {
+      key: "updateUI",
+      value: function updateUI() {
+        console.log(' this._items', this._items);
+        // calculate what the new offsets should be given item sizes may have changed
+        this._items.reduce(function (newOffset, item) {
+          if (newOffset !== null) {
+            item.offset = newOffset;
+          }
+          item.item.setOffset(item.offset);
+          return item.offset + item.item.getSize();
+        }, null);
+      }
+    }, {
       key: "isWaitingForItem",
       value: function isWaitingForItem() {
         return this._waitingForItem;
@@ -786,6 +799,15 @@
           var justReversedRate = _this7._justReversedRate;
           _this7._justReversedRate = false;
 
+          // calculate what the new offsets should be given item sizes may have changed
+          _this7._items.reduce(function (newOffset, item) {
+            if (newOffset !== null) {
+              item.offset = newOffset;
+            }
+            item.item.setOffset(item.offset);
+            return item.offset + item.item.getSize();
+          }, null);
+
           // remove items that are off screen
           _this7._items = _toConsumableArray(_this7._items).filter(function (_ref10) {
             var item = _ref10.item,
@@ -794,17 +816,6 @@
             if (!keep) _this7._removeItem(item);
             return keep;
           });
-
-          // calculate what the new offsets should be given item sizes may have changed
-          _this7._items.reduce(function (newOffset, item) {
-            if (newOffset !== null &&
-            // size of the item before has increased and would be overlapping
-            item.offset < newOffset) {
-              item.offset = newOffset;
-            }
-            item.item.setOffset(item.offset);
-            return item.offset + item.item.getSize();
-          }, null);
           if (_this7._pendingItem) {
             _this7._$moving.appendChild(_this7._pendingItem.getContainer());
             if (_this7._lastEffectiveRate <= 0) {

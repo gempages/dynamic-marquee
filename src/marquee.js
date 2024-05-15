@@ -127,6 +127,23 @@ export class Marquee {
     });
   }
 
+   updateUI() {
+
+    console.log(' this._items',  this._items);
+      // calculate what the new offsets should be given item sizes may have changed
+      this._items.reduce((newOffset, item) => {
+        if (
+          newOffset !== null 
+        ) {
+         
+          item.offset =   newOffset;
+        }
+   
+        item.item.setOffset(item.offset);
+        return item.offset + item.item.getSize();
+      }, null);
+  }
+
   isWaitingForItem() {
     return this._waitingForItem;
   }
@@ -339,7 +356,22 @@ export class Marquee {
       const justReversedRate = this._justReversedRate;
       this._justReversedRate = false;
 
-      // remove items that are off screen
+   
+
+      // calculate what the new offsets should be given item sizes may have changed
+      this._items.reduce((newOffset, item) => {
+        if (
+          newOffset !== null 
+        ) {
+         
+          item.offset =   newOffset;
+        }
+   
+        item.item.setOffset(item.offset);
+        return item.offset + item.item.getSize();
+      }, null);
+
+         // remove items that are off screen
       this._items = [...this._items].filter(({ item, offset }) => {
         const keep =
           this._lastEffectiveRate <= 0
@@ -349,20 +381,7 @@ export class Marquee {
         return keep;
       });
 
-      // calculate what the new offsets should be given item sizes may have changed
-      this._items.reduce((newOffset, item) => {
-        if (
-          newOffset !== null &&
-          // size of the item before has increased and would be overlapping
-          item.offset < newOffset
-        ) {
-          item.offset = newOffset;
-        }
-        item.item.setOffset(item.offset);
-        return item.offset + item.item.getSize();
-      }, null);
-
-      if (this._pendingItem) {
+      if (this._pendingItem) { 
         this._$moving.appendChild(this._pendingItem.getContainer());
         if (this._lastEffectiveRate <= 0) {
           const neighbour = last(this._items);
