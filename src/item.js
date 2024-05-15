@@ -43,6 +43,7 @@ export class Item {
     this._$container.style.removeProperty('opacity');
     this._$container.style.removeProperty('pointer-events');
     this._$container.removeAttribute('aria-hidden');
+    console.log('offsetoffset', offset);
     if (this._direction === DIRECTION.RIGHT) {
       this._$container.style.left = `${offset}px`;
     } else {
