@@ -354,9 +354,7 @@ export class Marquee {
         if (
           newOffset !== null &&
           // size of the item before has increased and would be overlapping
-          (item.offset < newOffset ||
-            // this item is meant to always snap to the previous
-            item.item.getSnapToNeighbor())
+          (item.offset < newOffset)
         ) {
           item.offset = newOffset;
         }

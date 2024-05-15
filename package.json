@@ -18,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tjenkinson/dynamic-marquee.git"
+    "url": "git@github.com:truongnc1/dynamic-marquee.git"
   },
   "keywords": [
     "marquee",
