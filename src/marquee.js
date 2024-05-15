@@ -354,7 +354,7 @@ export class Marquee {
         if (
           newOffset !== null &&
           // size of the item before has increased and would be overlapping
-          (item.offset < newOffset)
+          item.offset < newOffset
         ) {
           item.offset = newOffset;
         }
