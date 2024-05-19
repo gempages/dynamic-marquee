@@ -361,13 +361,13 @@ export class Marquee {
         item.item.setOffset(item.offset);
         return item.offset + item.item.getSize();
       }, null);
-
       // remove items that are off screen
       this._items = [...this._items].filter(({ item, offset }) => {
+       
         const keep =
           this._lastEffectiveRate <= 0
             ? offset + item.getSize() > this._windowOffset
-            : offset < this._windowOffset + containerSize;
+            : ((offset + item.getSize()) > 0 || ((offset + item.getSize())  < containerSize));
         if (!keep) this._removeItem(item);
         return keep;
       });

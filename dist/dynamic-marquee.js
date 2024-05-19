@@ -806,12 +806,11 @@
             item.item.setOffset(item.offset);
             return item.offset + item.item.getSize();
           }, null);
-
           // remove items that are off screen
           _this7._items = _toConsumableArray(_this7._items).filter(function (_ref10) {
             var item = _ref10.item,
               offset = _ref10.offset;
-            var keep = _this7._lastEffectiveRate <= 0 ? offset + item.getSize() > _this7._windowOffset : offset < _this7._windowOffset + containerSize;
+            var keep = _this7._lastEffectiveRate <= 0 ? offset + item.getSize() > _this7._windowOffset : offset + item.getSize() > 0 || offset + item.getSize() < containerSize;
             if (!keep) _this7._removeItem(item);
             return keep;
           });
