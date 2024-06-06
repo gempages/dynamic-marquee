@@ -4,6 +4,7 @@ export type Options = {
   rate?: number;
   upDown?: boolean;
   startOnScreen?: boolean;
+  fullWidth?: boolean;
 };
 
 export type Item = HTMLElement | string | number;
