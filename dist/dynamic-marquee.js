@@ -277,9 +277,6 @@
       $container.style.opacity = '0';
       $container.style.pointerEvents = 'none';
       $container.style.position = 'absolute';
-      if (fullWidth) {
-        $container.style.width = '100%';
-      }
       if (direction === DIRECTION.RIGHT) {
         $container.style.whiteSpace = 'nowrap';
       } else {
@@ -296,6 +293,11 @@
       this._metadata = metadata;
       this._snapToNeighbor = snapToNeighbor;
       this._offset = null;
+      if (fullWidth) {
+        setTimeout(function () {
+          $container.style.width = '100%';
+        }, 10);
+      }
     }
     return _createClass(Item, [{
       key: "getSize",

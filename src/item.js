@@ -9,10 +9,6 @@ export class Item {
     $container.style.opacity = '0';
     $container.style.pointerEvents = 'none';
     $container.style.position = 'absolute';
-    if (fullWidth) {
-      $container.style.width = '100%';
-    }
-
     if (direction === DIRECTION.RIGHT) {
       $container.style.whiteSpace = 'nowrap';
     } else {
@@ -30,6 +26,11 @@ export class Item {
     this._metadata = metadata;
     this._snapToNeighbor = snapToNeighbor;
     this._offset = null;
+    if (fullWidth) {
+      setTimeout(() => {
+        $container.style.width = '100%';
+      }, 10);
+    }
   }
   getSize({ inverse = false } = {}) {
     let dir = this._direction;
