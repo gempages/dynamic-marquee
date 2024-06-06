@@ -2,14 +2,17 @@ import { DIRECTION } from './direction.js';
 import { SizeWatcher } from './size-watcher.js';
 
 export class Item {
-  constructor({ $el, direction, metadata, snapToNeighbor }) {
+  constructor({ $el, direction, metadata, snapToNeighbor, fullWidth }) {
     const $container = document.createElement('div');
     $container.style.all = 'unset';
     $container.style.display = 'block';
     $container.style.opacity = '0';
     $container.style.pointerEvents = 'none';
     $container.style.position = 'absolute';
-    $container.style.width = '100%';
+    if(fullWidth){
+       $container.style.width = '100%';
+    }
+   
     if (direction === DIRECTION.RIGHT) {
       $container.style.whiteSpace = 'nowrap';
     } else {

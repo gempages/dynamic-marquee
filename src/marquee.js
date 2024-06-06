@@ -18,8 +18,10 @@ export class Marquee {
       upDown = false,
       // start on screen
       startOnScreen = false,
+      fullWidth = false,
     } = {},
   ) {
+
     this._boundary = new Boundary({
       onEnter: () => ({
         callbacks: [],
@@ -59,6 +61,7 @@ export class Marquee {
     this._containerSizeWatcher = new SizeWatcher($window);
     this._containerSizeWatcher.onSizeChange(() => this._tickOnRaf());
     this.windowInverseSize = null;
+    this.fullWidth = fullWidth;
     this._updateWindowInverseSize();
     const $moving = document.createElement('div');
     this._$moving = $moving;
@@ -149,6 +152,7 @@ export class Marquee {
     const item = new Item({
       $el,
       direction: this._direction,
+      fullWidth: this.fullWidth
     });
     this._$window.appendChild(item.getContainer());
 
@@ -185,6 +189,7 @@ export class Marquee {
         direction: this._direction,
         metadata,
         snapToNeighbor: resolvedSnap,
+         fullWidth: this.fullWidth
       });
       this._pendingItem.onSizeChange(() => this._tickOnRaf());
       this._tick();
@@ -363,11 +368,11 @@ export class Marquee {
       }, null);
       // remove items that are off screen
       this._items = [...this._items].filter(({ item, offset }) => {
-       
         const keep =
           this._lastEffectiveRate <= 0
             ? offset + item.getSize() > this._windowOffset
-            : ((offset + item.getSize()) > 0 || ((offset + item.getSize())  < containerSize));
+            : offset + item.getSize() > 0 ||
+              offset + item.getSize() < containerSize;
         if (!keep) this._removeItem(item);
         return keep;
       });
