@@ -21,7 +21,6 @@ export class Marquee {
       fullWidth = false,
     } = {},
   ) {
-
     this._boundary = new Boundary({
       onEnter: () => ({
         callbacks: [],
@@ -152,7 +151,7 @@ export class Marquee {
     const item = new Item({
       $el,
       direction: this._direction,
-      fullWidth: this.fullWidth
+      fullWidth: this.fullWidth,
     });
     this._$window.appendChild(item.getContainer());
 
@@ -189,7 +188,7 @@ export class Marquee {
         direction: this._direction,
         metadata,
         snapToNeighbor: resolvedSnap,
-         fullWidth: this.fullWidth
+        fullWidth: this.fullWidth,
       });
       this._pendingItem.onSizeChange(() => this._tickOnRaf());
       this._tick();

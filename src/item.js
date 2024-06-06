@@ -9,10 +9,10 @@ export class Item {
     $container.style.opacity = '0';
     $container.style.pointerEvents = 'none';
     $container.style.position = 'absolute';
-    if(fullWidth){
-       $container.style.width = '100%';
+    if (fullWidth) {
+      $container.style.width = '100%';
     }
-   
+
     if (direction === DIRECTION.RIGHT) {
       $container.style.whiteSpace = 'nowrap';
     } else {
