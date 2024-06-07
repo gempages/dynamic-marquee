@@ -1,5 +1,5 @@
 {
-  "name": "dynamic-marquee",
+  "name": "@gem-sdk/dynamic-marquee",
   "version": "2.6.3",
   "description": "A small library for creating marquees.",
   "main": "./dist/dynamic-marquee.js",
