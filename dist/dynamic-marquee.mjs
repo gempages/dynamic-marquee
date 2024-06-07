@@ -263,7 +263,8 @@ var Item = /*#__PURE__*/function () {
       direction = _ref.direction,
       metadata = _ref.metadata,
       snapToNeighbor = _ref.snapToNeighbor,
-      fullWidth = _ref.fullWidth;
+      fullWidth = _ref.fullWidth,
+      isLazyFullWidth = _ref.isLazyFullWidth;
     _classCallCheck(this, Item);
     var $container = document.createElement('div');
     $container.style.all = 'unset';
@@ -288,9 +289,13 @@ var Item = /*#__PURE__*/function () {
     this._snapToNeighbor = snapToNeighbor;
     this._offset = null;
     if (fullWidth) {
-      setTimeout(function () {
+      if (isLazyFullWidth) {
+        setTimeout(function () {
+          $container.style.width = '100%';
+        }, 10);
+      } else {
         $container.style.width = '100%';
-      }, 10);
+      }
     }
   }
   return _createClass(Item, [{
@@ -438,7 +443,9 @@ var Marquee = /*#__PURE__*/function () {
       _ref$startOnScreen = _ref.startOnScreen,
       startOnScreen = _ref$startOnScreen === void 0 ? false : _ref$startOnScreen,
       _ref$fullWidth = _ref.fullWidth,
-      fullWidth = _ref$fullWidth === void 0 ? false : _ref$fullWidth;
+      fullWidth = _ref$fullWidth === void 0 ? false : _ref$fullWidth,
+      _ref$isLazyFullWidth = _ref.isLazyFullWidth,
+      isLazyFullWidth = _ref$isLazyFullWidth === void 0 ? false : _ref$isLazyFullWidth;
     _classCallCheck(this, Marquee);
     this._boundary = new Boundary({
       onEnter: function onEnter() {
@@ -473,6 +480,7 @@ var Marquee = /*#__PURE__*/function () {
     this._pendingItem = null;
     this._visible = !!document.hidden;
     this._waitingForRaf = false;
+    this.isLazyFullWidth = isLazyFullWidth;
     var $window = document.createElement('div');
     $window.style.all = 'unset';
     $window.style.display = 'block';
@@ -591,7 +599,8 @@ var Marquee = /*#__PURE__*/function () {
       var item = new Item({
         $el: $el,
         direction: this._direction,
-        fullWidth: this.fullWidth
+        fullWidth: this.fullWidth,
+        isLazyFullWidth: this.isLazyFullWidth
       });
       this._$window.appendChild(item.getContainer());
       return {
@@ -634,7 +643,8 @@ var Marquee = /*#__PURE__*/function () {
           direction: _this3._direction,
           metadata: metadata,
           snapToNeighbor: resolvedSnap,
-          fullWidth: _this3.fullWidth
+          fullWidth: _this3.fullWidth,
+          isLazyFullWidth: _this3.isLazyFullWidth
         });
         _this3._pendingItem.onSizeChange(function () {
           return _this3._tickOnRaf();

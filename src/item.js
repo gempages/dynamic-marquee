@@ -2,7 +2,14 @@ import { DIRECTION } from './direction.js';
 import { SizeWatcher } from './size-watcher.js';
 
 export class Item {
-  constructor({ $el, direction, metadata, snapToNeighbor, fullWidth }) {
+  constructor({
+    $el,
+    direction,
+    metadata,
+    snapToNeighbor,
+    fullWidth,
+    isLazyFullWidth,
+  }) {
     const $container = document.createElement('div');
     $container.style.all = 'unset';
     $container.style.display = 'block';
@@ -27,9 +34,13 @@ export class Item {
     this._snapToNeighbor = snapToNeighbor;
     this._offset = null;
     if (fullWidth) {
-      setTimeout(() => {
+      if (isLazyFullWidth) {
+        setTimeout(() => {
+          $container.style.width = '100%';
+        }, 10);
+      } else {
         $container.style.width = '100%';
-      }, 10);
+      }
     }
   }
   getSize({ inverse = false } = {}) {

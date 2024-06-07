@@ -19,6 +19,7 @@ export class Marquee {
       // start on screen
       startOnScreen = false,
       fullWidth = false,
+      isLazyFullWidth = false,
     } = {},
   ) {
     this._boundary = new Boundary({
@@ -48,6 +49,7 @@ export class Marquee {
     this._pendingItem = null;
     this._visible = !!document.hidden;
     this._waitingForRaf = false;
+    this.isLazyFullWidth = isLazyFullWidth;
     const $window = document.createElement('div');
     $window.style.all = 'unset';
     $window.style.display = 'block';
@@ -152,6 +154,7 @@ export class Marquee {
       $el,
       direction: this._direction,
       fullWidth: this.fullWidth,
+      isLazyFullWidth: this.isLazyFullWidth,
     });
     this._$window.appendChild(item.getContainer());
 
@@ -189,6 +192,7 @@ export class Marquee {
         metadata,
         snapToNeighbor: resolvedSnap,
         fullWidth: this.fullWidth,
+        isLazyFullWidth: this.isLazyFullWidth,
       });
       this._pendingItem.onSizeChange(() => this._tickOnRaf());
       this._tick();

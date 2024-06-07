@@ -5,6 +5,7 @@ export type Options = {
   upDown?: boolean;
   startOnScreen?: boolean;
   fullWidth?: boolean;
+  isLazyFullWidth?: boolean;
 };
 
 export type Item = HTMLElement | string | number;
